@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { motion } from "framer-motion";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -9,14 +9,30 @@ function Login() {
 
   const handleLogin = (e) => {
     e.preventDefault();
-    navigate("/check");
+    navigate("/about"); // ✅ Now redirects to About page
   };
 
   return (
-    <div className="vh-100 d-flex justify-content-center align-items-center"
-      style={{ background: "linear-gradient(135deg, #1c92d2, #f2fcfe)" }}
+    <motion.div
+      className="vh-100 d-flex justify-content-center align-items-center"
+      style={{ background: "linear-gradient(135deg, #141E30, #243B55)" }}
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 1 }}
     >
-      <div className="card p-5 shadow-lg rounded-4 border-0" style={{ width: "400px", background: "rgba(255, 255, 255, 0.85)" }}>
+      <motion.div
+        className="card p-5 shadow-lg rounded-4 border-0"
+        style={{
+          width: "400px",
+          background: "rgba(255, 255, 255, 0.1)",
+          backdropFilter: "blur(10px)",
+          color: "#fff",
+          border: "1px solid rgba(255, 255, 255, 0.2)",
+        }}
+        initial={{ y: 50, opacity: 0 }}
+        animate={{ y: 0, opacity: 1 }}
+        transition={{ duration: 1, ease: "easeOut" }}
+      >
         <h2 className="text-center mb-4">Login to SafeHire</h2>
         <form onSubmit={handleLogin}>
           <div className="mb-3">
@@ -27,6 +43,7 @@ function Login() {
               placeholder="Enter your username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
+              required
             />
           </div>
           <div className="mb-3">
@@ -37,9 +54,17 @@ function Login() {
               placeholder="Enter your password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              required
             />
           </div>
-          <button className="btn btn-primary w-100 fw-bold">Login</button>
+          <motion.button
+            type="submit"
+            className="btn btn-primary w-100 fw-bold"
+            whileHover={{ scale: 1.05 }}
+            whileTap={{ scale: 0.95 }}
+          >
+            Login
+          </motion.button>
         </form>
         <div className="text-center mt-3">
           <p>
@@ -53,8 +78,8 @@ function Login() {
             </span>
           </p>
         </div>
-      </div>
-    </div>
+      </motion.div>
+    </motion.div>
   );
 }
 
